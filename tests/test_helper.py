@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.ecgai_drawing.models.ecg_leads import Leads
+from ecgai_drawing.models.ecg_leads import Leads
 
 # from definitions import ROOT_DIR
 

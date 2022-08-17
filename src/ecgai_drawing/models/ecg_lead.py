@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import ValidationError, validator
+import pydantic
 
 from ecgai_drawing.enums.ecg_lead_name import LeadName
 from ecgai_drawing.models.model_base import MyBaseModel
@@ -12,7 +12,7 @@ class Lead(MyBaseModel):
     signal: List[float]  # = Field(..., alias='signal')
 
     # noinspection PyMethodParameters
-    @validator("lead_name", pre=True)
+    @pydantic.validator("lead_name", pre=True)
     def lead_name_to_enum(cls, v):
         return LeadName[v]
 
@@ -21,7 +21,7 @@ class Lead(MyBaseModel):
         try:
             d = dict(LeadName=lead_name, Signal=signal)
             return cls.from_dict(d)
-        except ValidationError as e:
+        except pydantic.ValidationError as e:
             # logging.error(e)
             raise e
 
