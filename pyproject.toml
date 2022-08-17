@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "ecgai-drawing"
+version = "0.1.1"
+description = ""
+authors = ["RobC <rob.clapham@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.23.2"
+aenum = "^3.1.11"
+pydantic = "^1.9.2"
+tox = "^3.25.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pre-commit = "^2.20.0"
+pylint = "^2.14.5"
+coverage = "^6.4.4"
+tox-poetry-installer = {extras = ["poetry"], version = "^0.8.4"}
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+omit = [
+    "src/ecgai_drawing/enums/*",
+    "other/lib.py"
+]
+
+[tool.isort]
+profile = "black"
