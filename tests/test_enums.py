@@ -1,3 +1,4 @@
+from ecgai_drawing.enums.color_style import ColorStyle
 from ecgai_drawing.enums.ecg_lead_name import LeadName
 
 
@@ -132,7 +133,6 @@ def test_ecg_lead_enum_to_string_from_lower_case():
     label = lead1.name
     print(label)
     assert label == "aVL"
-
 
 # def test_protobuf_ecg_lead_name_to_lead_name():
 #     v1 = EcgLeadName.V1
