@@ -9,6 +9,7 @@ from numpy import ndarray
 
 def load_image(image_name: str, image_path: str, as_gray: bool = False) -> ndarray:
     file_name = os.path.join(image_path, image_name)
+    print("the file path for load is " + file_name)
     return skimage.io.imread(fname=file_name, as_gray=as_gray)
 
 

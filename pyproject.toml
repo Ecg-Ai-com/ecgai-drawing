@@ -26,6 +26,7 @@ tox = "^3.25.1"
 bandit = {extras = ["toml"], version = "^1.7.4"}
 fluentcheck = "^0.2.0"
 black = "^22.6.0"
+imageio = {extras = ["pyav"], version = "^2.21.1"}
 
 
 [build-system]
