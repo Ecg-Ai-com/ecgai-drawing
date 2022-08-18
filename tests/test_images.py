@@ -20,7 +20,9 @@ def image_name() -> str:
 
 
 def image_path() -> str:
-    return os.path.abspath("test_data")
+    file_path = os.path.abspath("test_data")
+    print(file_path)
+    return file_path
 
 
 def create_byte_image(byte_image, tmp_path):
