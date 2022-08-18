@@ -18,6 +18,10 @@ repos:
 #    rev: v4.1.0
 #    hooks:
 #      - id: debug-statements
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
 
   - repo: https://github.com/PyCQA/flake8
     rev: 5.0.4
@@ -50,10 +54,7 @@ repos:
       - --skip
       - B101
 
-  - repo: https://github.com/psf/black
-    rev: 22.3.0
-    hooks:
-      - id: black
+
 #        args: ["--check"]
 
 #  - repo: https://github.com/PyCQA/isort
