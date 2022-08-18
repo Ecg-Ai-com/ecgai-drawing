@@ -6,7 +6,7 @@ from ecgai_drawing.models.ecg_leads import Leads
 
 
 @dataclass
-class DrawEcgPlotParameters:
+class DrawEcgPlotResponse:
     transaction_id: str
     record_name: str
     sample_rate: int

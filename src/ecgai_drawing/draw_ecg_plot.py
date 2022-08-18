@@ -1,16 +1,16 @@
 from numpy import ndarray
 
 from ecgai_drawing import images
-from ecgai_drawing.ecg_plot_parameters import DrawEcgPlotParameters
+from ecgai_drawing.ecg_plot_response import DrawEcgPlotResponse
 from ecgai_drawing.ecg_plotter import EcgPlotter
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
 
 
 class DrawEcgPlot:
-    _plot_parameters: DrawEcgPlotParameters
+    _plot_parameters: DrawEcgPlotResponse
 
-    def __init__(self, plot_parameters: DrawEcgPlotParameters):
+    def __init__(self, plot_parameters: DrawEcgPlotResponse):
         self._plot_parameters = plot_parameters
 
     # self.transaction_id = transaction_id

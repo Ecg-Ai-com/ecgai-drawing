@@ -1,7 +1,6 @@
 import os
 
 import pytest
-from fluentcheck import Is
 from numpy import ndarray
 
 from ecgai_drawing.ecg_plotter import EcgPlotter
@@ -50,7 +49,7 @@ class TestEcgPlot:
         assert ecg_plotter.color_style == ColorStyle.color
         assert ecg_plotter.show_grid == ShowGrid.false
         number_of_files = len(os.listdir(tmp_path))
-        Is(number_of_files).between(1, 1)
+        assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
     def test_create_ecg_plot_save_as_colour_png_without_grid(
@@ -69,7 +68,7 @@ class TestEcgPlot:
         assert ecg_plotter.color_style == ColorStyle.color
         assert ecg_plotter.show_grid == show_grid
         number_of_files = len(os.listdir(tmp_path))
-        Is(number_of_files).between(1, 1)
+        assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
     def test_create_ecg_plot_save_as_black_and_white_png_with_grid(
@@ -92,7 +91,7 @@ class TestEcgPlot:
         assert ecg_plotter.color_style == color_style
         assert ecg_plotter.show_grid == ShowGrid.true
         number_of_files = len(os.listdir(tmp_path))
-        Is(number_of_files).between(1, 1)
+        assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
     def test_create_ecg_plot_save_as_black_and_white_png_without_grid(
@@ -115,7 +114,7 @@ class TestEcgPlot:
         assert ecg_plotter.color_style == color_style
         assert ecg_plotter.show_grid == show_grid
         number_of_files = len(os.listdir(tmp_path))
-        Is(number_of_files).between(1, 1)
+        assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
     def test_create_ecg_plot_save_as_mask_png(self, record_path_name, tmp_path):
@@ -136,7 +135,7 @@ class TestEcgPlot:
         assert ecg_plotter.color_style == color_style
         assert ecg_plotter.show_grid == ShowGrid.false
         number_of_files = len(os.listdir(tmp_path))
-        Is(number_of_files).between(1, 1)
+        assert number_of_files == 1
 
     # @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
     # def test_create_ecg_plot_save_as_binary_png(self, record_path_name, tmp_path):

@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from ecgai_drawing.draw_ecg_plot import DrawEcgPlot
-from ecgai_drawing.ecg_plot_parameters import DrawEcgPlotParameters
+from ecgai_drawing.ecg_plot_response import DrawEcgPlotResponse
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
 from ecgai_drawing.enums.show_grid import ShowGrid
@@ -57,7 +57,7 @@ def test_create_draw_ecg_plot_with_color_no_grid_salt_and_peper(
     # Arrange
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -92,7 +92,7 @@ def test_create_draw_ecg_plot_with_color_with_grid(record_path_name, tmp_path):
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -118,7 +118,7 @@ def test_create_draw_ecg_plot_with_color_no_grid(record_path_name, tmp_path):
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -146,7 +146,7 @@ def test_create_draw_ecg_plot_with_black_and_white_with_grid(
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -174,7 +174,7 @@ def test_create_draw_ecg_plot_with_black_and_white_with_grid_salt(
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -203,7 +203,7 @@ def test_create_draw_ecg_plot_with_black_and_white_with_grid_salt_and_peper(
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -230,7 +230,7 @@ def test_create_draw_ecg_plot_with_mask(record_path_name, tmp_path):
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    parameters = DrawEcgPlotParameters(
+    parameters = DrawEcgPlotResponse(
         transaction_id=transaction_id,
         record_name="record name test",
         sample_rate=ecg_leads.sample_rate,
@@ -256,7 +256,7 @@ def test_create_draw_ecg_plot_with_mask(record_path_name, tmp_path):
 # ): # Arrange ecg_leads = setup_test_record_data(path_name=record_path_name)
 # draw_request = DrawEcgPlotRequestOld.create(ecg_leads=ecg_leads,
 # color_style=ColorStyle.color, show_grid=ShowGrid.true,
-# artifact=Artifact.salt_and_pepper) draw_plot = DrawEcgPlotParameters(
+# artifact=Artifact.salt_and_pepper) draw_plot = DrawEcgPlotResponse(
 # draw_request=draw_request) json_value = draw_plot.handle() file_name =
 # 'save_as_json.json' file_path = os.path.join(tmp_path, file_name) with open(
 # file_path, 'w') as outfile: json.dump(json_value, outfile, cls=NumpyArrayEncoder)
@@ -275,7 +275,7 @@ def test_create_draw_ecg_plot_with_mask(record_path_name, tmp_path):
 # transaction_id = uuid.uuid4().hex draw_request = DrawEcgPlotRequestOld.create(
 # transaction_id=transaction_id, ecg_leads=ecg_leads, color_style=ColorStyle.color,
 # show_grid=Grid.true, artifact=Artifact.salt_and_pepper) draw_ecg =
-# DrawEcgPlotParameters(draw_request=draw_request)
+# DrawEcgPlotResponse(draw_request=draw_request)
 #
 #     draw_response = draw_ecg.handle()
 #     json_value = draw_response.to_json()
