@@ -5,10 +5,15 @@ description = ""
 authors = ["RobC <rob.clapham@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+#TODO change poetry version to <4.0, currently required by scipy
+python = "^3.10,<3.12"
 numpy = "^1.23.2"
 aenum = "^3.1.11"
 pydantic = "^1.9.2"
+matplotlib = "^3.5.3"
+scikit-image = "^0.19.3"
+scipy = "^1.9.0"
+opencv-python = "^4.6.0"
 
 
 [tool.poetry.dev-dependencies]
@@ -19,6 +24,7 @@ coverage = "^6.4.4"
 tox-poetry-installer = {extras = ["poetry"], version = "^0.8.4"}
 tox = "^3.25.1"
 bandit = {extras = ["toml"], version = "^1.7.4"}
+fluentcheck = "^0.2.0"
 
 
 [build-system]
