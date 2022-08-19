@@ -247,6 +247,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "definitions"
+version = "0.2.0"
+description = "Load and validate YAML definitions against a schema"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+PyYAML = "*"
+
+[[package]]
 name = "dill"
 version = "0.3.5.1"
 description = "serialize all of python"
@@ -842,7 +853,7 @@ python-versions = "*"
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1106,7 +1117,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10,<3.12"
-content-hash = "2bb77f20b1466a73e895612c74b58a8618922a2db5dd97055b4c696c5d735e8a"
+content-hash = "7fa80a7ffa88b6bcefca09c437527a0ff688480eeecad3674597de114db0d461"
 
 [metadata.files]
 aenum = [
@@ -1379,6 +1390,9 @@ cryptography = [
 cycler = [
     {file = "cycler-0.11.0-py3-none-any.whl", hash = "sha256:3a27e95f763a428a739d2add979fa7494c912a32c17c4c38c4d5f082cad165a3"},
     {file = "cycler-0.11.0.tar.gz", hash = "sha256:9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"},
+]
+definitions = [
+    {file = "definitions-0.2.0.tar.gz", hash = "sha256:cf9ede16e4fafe7c0ca34df47afee4c2df07d4d7462b95cf2044d7a48f3fc347"},
 ]
 dill = [
     {file = "dill-0.3.5.1-py2.py3-none-any.whl", hash = "sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302"},

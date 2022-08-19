@@ -28,6 +28,7 @@ def setup_test_record_data(path_name: str) -> Leads:
     # record = Leads()
     # with open(record_path) as f:
     #     record.from_json(f.read())
+    print("the file path for load record is " + record_path)
     with open(record_path) as json_file:
         data = json.load(json_file)
     record = Leads.from_json(data)

@@ -18,9 +18,9 @@ def save_image_as_ubyte(image: ndarray, image_name: str, save_path: str):
     save_image(image=byte_image, image_name=image_name, save_path=save_path)
 
 
-def save_image_as_bool(image: ndarray, image_name: str, save_path: str):
-    byte_image = skimage.img_as_bool(image)
-    save_image(image=byte_image, image_name=image_name, save_path=save_path)
+# def save_image_as_bool(image: ndarray, image_name: str, save_path: str):
+#     byte_image = skimage.img_as_bool(image)
+#     save_image(image=byte_image, image_name=image_name, save_path=save_path)
 
 
 def save_image(image: ndarray, image_name: str, save_path: str):
