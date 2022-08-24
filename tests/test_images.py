@@ -55,11 +55,11 @@ def test_convert_from_bytes_write_to_image_file(tmp_path):
 #     base_image_file_name, byte_image = create_base_image(tmp_path)
 #
 #     # act
-#     draw_response = DrawEcgPlotRequest(transaction_id='1',
+#     draw_response = EcgPlotRequest(transaction_id='1',
 #     record_name='name', file_name='filename', image=byte_image)
 #
 #     # assert
-#     isinstance(draw_response, DrawEcgPlotRequest)
+#     isinstance(draw_response, EcgPlotRequest)
 #     assert len(draw_response.image) != 0
 #
 #
@@ -68,7 +68,7 @@ def test_convert_from_bytes_write_to_image_file(tmp_path):
 #     base_image_file_name, byte_image = create_base_image(tmp_path)
 #
 #     # act
-#     draw_response = DrawEcgPlotRequest(transaction_id='1', record_name='name'
+#     draw_response = EcgPlotRequest(transaction_id='1', record_name='name'
 #     , file_name='filename', image=byte_image)
 #     byte_image_file_name = create_byte_image(draw_response.image, tmp_path)
 #
@@ -83,12 +83,12 @@ def test_convert_from_bytes_write_to_image_file(tmp_path):
 #     base_image_file_name, byte_image = create_base_image(tmp_path)
 #
 #     # act
-#     draw_response = DrawEcgPlotRequest(transaction_id='1', record_name='name',
+#     draw_response = EcgPlotRequest(transaction_id='1', record_name='name',
 #     file_name='filename', image=byte_image)
 #
 #     draw_response_file_path = save_draw_ecg_plot_response_to_file(draw_response, tmp_path)
 #
-#     opened_draw_response = DrawEcgPlotRequest()
+#     opened_draw_response = EcgPlotRequest()
 #     with open(draw_response_file_path, "r") as f:
 #         opened_draw_response.from_json(f.read())
 #

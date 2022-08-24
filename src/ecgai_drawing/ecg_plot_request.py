@@ -6,7 +6,7 @@ from ecgai_drawing.models.ecg_leads import Leads
 from ecgai_drawing.models.model_base import MyBaseModel
 
 
-class DrawEcgPlotRequest(MyBaseModel):
+class EcgPlotRequest(MyBaseModel):
     transaction_id: str
     record_name: str
     sample_rate: int

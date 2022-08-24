@@ -1,8 +1,8 @@
 from numpy import ndarray
 
 from ecgai_drawing import images
-from ecgai_drawing.ecg_plot_request import DrawEcgPlotRequest
-from ecgai_drawing.ecg_plot_response import DrawEcgPlotResponse
+from ecgai_drawing.ecg_plot_request import EcgPlotRequest
+from ecgai_drawing.ecg_plot_response import EcgPlotResponse
 from ecgai_drawing.ecg_plotter import EcgPlotter
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
@@ -10,9 +10,9 @@ from ecgai_drawing.images import DEFAULT_FILE_EXTENSION, convert_to_bytes
 
 
 class DrawEcgPlot:
-    _plot_parameters: DrawEcgPlotRequest
+    _plot_parameters: EcgPlotRequest
 
-    def __init__(self, plot_parameters: DrawEcgPlotRequest):
+    def __init__(self, plot_parameters: EcgPlotRequest):
         self._plot_parameters = plot_parameters
 
     # self.transaction_id = transaction_id
@@ -23,17 +23,17 @@ class DrawEcgPlot:
 
     # ecg = 6;
 
-    def handle(self) -> DrawEcgPlotResponse:
+    def handle(self) -> EcgPlotResponse:
 
         image = self._create_image()
-        return DrawEcgPlotResponse.create(
+        return EcgPlotResponse.create(
             transaction_id=self._plot_parameters.transaction_id,
             record_name=self._plot_parameters.record_name,
             file_name=self._plot_parameters.file_name,
             file_extension=DEFAULT_FILE_EXTENSION,
             image=convert_to_bytes(image=image),
         )
-        # return DrawEcgPlotResponse(
+        # return EcgPlotResponse(
         #     transaction_id=self._plot_parameters.transaction_id,
         #     record_name=self._plot_parameters.record_name,
         #     file_name=self._plot_parameters.file_name,
@@ -41,10 +41,10 @@ class DrawEcgPlot:
         # )
         # return draw_response
 
-    # def _create_response(self, image: ndarray) -> DrawEcgPlotRequest:
+    # def _create_response(self, image: ndarray) -> EcgPlotRequest:
     #     f, buffer = cv2.imencode(ext='.png', img=image)
     #     image_string = base64.b64encode(buffer)
-    #     return DrawEcgPlotRequest(
+    #     return EcgPlotRequest(
     #         transaction_id=self.transaction_id,
     #         record_name=self.ecg.record_name,
     #         file_name=self.file_name,

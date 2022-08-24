@@ -48,7 +48,7 @@ def setup_test_record_data(path_name: str) -> Leads:
 #     dest.write_text(src.read_text())  # for text files
 
 
-# from ecgai_drawing_ecg_grpc.ecg_drawing import DrawEcgPlotRequest
+# from ecgai_drawing_ecg_grpc.ecg_drawing import EcgPlotRequest
 BASE_IMAGE_NAME = "base_image.png"
 BYTE_IMAGE_NAME = "byte_image.png"
 COLOR_WITHOUT_GRID_NAME = "color_without_grid.png"

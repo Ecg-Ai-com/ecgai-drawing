@@ -3,7 +3,7 @@ import pydantic
 from ecgai_drawing.models.model_base import MyBaseModel
 
 
-class DrawEcgPlotResponse(MyBaseModel):
+class EcgPlotResponse(MyBaseModel):
     transaction_id: str
     record_name: str
     file_name: str
