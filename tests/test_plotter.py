@@ -9,7 +9,7 @@ from ecgai_drawing.enums.show_grid import ShowGrid
 from ecgai_drawing.images import save_image
 
 # noinspection DuplicatedCode
-from tests.test_helper import setup_test_record_data, single_valid_record_path_name
+from tests.test_factory import setup_test_record_data, single_valid_record_path_name
 
 # from tests.helper import setup_test_record_data, single_valid_record_path_name
 
@@ -24,9 +24,7 @@ class TestEcgPlot:
     #     return ecg_plotter
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
-    def test_create_ecg_plotter_and_convert_ecg_leads_to_ndarray(
-        self, record_path_name
-    ):
+    def test_create_ecg_plotter_and_convert_ecg_leads_to_ndarray(self, record_path_name):
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
         sut = ecg_plotter._convert_to_ndarray(record)
@@ -34,9 +32,7 @@ class TestEcgPlot:
         assert len(sut) == 12
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
-    def test_create_ecg_plot_save_as_colour_png_with_grid_default(
-        self, record_path_name, tmp_path
-    ):
+    def test_create_ecg_plot_save_as_colour_png_with_grid_default(self, record_path_name, tmp_path):
         # Arrange
         print(tmp_path)
         record = setup_test_record_data(path_name=record_path_name)
@@ -52,17 +48,13 @@ class TestEcgPlot:
         assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
-    def test_create_ecg_plot_save_as_colour_png_without_grid(
-        self, record_path_name, tmp_path
-    ):
+    def test_create_ecg_plot_save_as_colour_png_without_grid(self, record_path_name, tmp_path):
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
         show_grid = ShowGrid.false
         # Act
-        image = ecg_plotter.plot(
-            sample_rate=record.sample_rate, ecg_leads=record, show_grid=show_grid
-        )
+        image = ecg_plotter.plot(sample_rate=record.sample_rate, ecg_leads=record, show_grid=show_grid)
         save_image(image=image, image_name="test.png", save_path=str(tmp_path))
         # Assert
         assert ecg_plotter.color_style == ColorStyle.color
@@ -71,9 +63,7 @@ class TestEcgPlot:
         assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
-    def test_create_ecg_plot_save_as_black_and_white_png_with_grid(
-        self, record_path_name, tmp_path
-    ):
+    def test_create_ecg_plot_save_as_black_and_white_png_with_grid(self, record_path_name, tmp_path):
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
@@ -94,9 +84,7 @@ class TestEcgPlot:
         assert number_of_files == 1
 
     @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
-    def test_create_ecg_plot_save_as_black_and_white_png_without_grid(
-        self, record_path_name, tmp_path
-    ):
+    def test_create_ecg_plot_save_as_black_and_white_png_without_grid(self, record_path_name, tmp_path):
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
@@ -148,7 +136,7 @@ class TestEcgPlot:
     #     image = ecg_plotter.plot(
     #         ecg_leads=record, color_style=color_style, show_grid=show_grid
     #     )
-    #     save_image(image=image, image_name="test.png", save_path=str(tmp_path))
+    #     save_image(image=image, COLOR_WITHOUT_GRID_NAME="test.png", save_path=str(tmp_path))
     #     # Assert
     #     assert ecg_plotter.color_style == color_style
     #     assert ecg_plotter.show_grid == ShowGrid.false

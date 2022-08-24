@@ -5,6 +5,7 @@ class ColorStyle(IntEnum):
     black_and_white = 1  # 'black_and_white'
     color = 2  # 'color'
     mask = 3  # 'mask'
+    grey_scale = 4
     # binary = 4  # 'binary'
 
     # @classmethod

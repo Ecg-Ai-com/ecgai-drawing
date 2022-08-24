@@ -11,7 +11,6 @@ from pydantic.dataclasses import dataclass
 
 from ecgai_drawing import images
 from ecgai_drawing.enums.color_style import ColorStyle
-from ecgai_drawing.enums.show_grid import ShowGrid
 from ecgai_drawing.models.ecg_leads import Leads
 
 # from skimage.color import rgba2rgb
@@ -44,7 +43,7 @@ class EcgPlotter:
     columns: int = 2
     row_height: int = 6
     show_lead_name: bool = True
-    show_grid: ShowGrid = ShowGrid.false
+    show_grid: bool = False
     show_separate_line: bool = True
     adjust_subplots: bool = True
 
@@ -54,7 +53,7 @@ class EcgPlotter:
         ecg_leads: Leads,
         title: str = "ECG 12 lead",
         color_style: ColorStyle = ColorStyle.color,
-        show_grid: ShowGrid = ShowGrid.false,
+        show_grid: bool = False,
     ) -> ndarray:
         """
 
@@ -78,9 +77,9 @@ class EcgPlotter:
         # convert from rgba format to rgb format
         # image = rgba2rgb(rgba=image)
         image = images.convert_from_rgba_to_rgb(image=image)
-        if self.color_style in [ColorStyle.mask]:
-            image = images.convert_to_binary(image=image)
-            image = images.convert_to_mask(image=image)
+        # if self.color_style in [ColorStyle.mask]:
+        # image = images.convert_to_black_and_white(image=image)
+        # image = images.convert_to_mask(image=image)
         return image
 
     def _draw_plot(self, ecg_leads: Leads):
@@ -106,7 +105,7 @@ class EcgPlotter:
 
         color_line, color_major_grid, color_minor_grid = self._set_line_style()
 
-        if self.show_grid == ShowGrid.true:
+        if self.show_grid:
             self._draw_grid(
                 subplot=subplot,
                 color_major_grid=color_major_grid,
@@ -176,9 +175,7 @@ class EcgPlotter:
                         color=color_line,
                     )
 
-    def _set_xy_axis_size(
-        self, length_seconds: float, rows: int
-    ) -> tuple[float, float, float, float]:
+    def _set_xy_axis_size(self, length_seconds: float, rows: int) -> tuple[float, float, float, float]:
         x_min = 0
         x_max = self.columns * length_seconds
         y_min = self.row_height / 4 - (rows / 2) * self.row_height
@@ -186,9 +183,7 @@ class EcgPlotter:
         return x_max, x_min, y_max, y_min
 
     @staticmethod
-    def _setup_subplot(
-        figure, x_max: float, x_min: float, y_max: float, y_min: float
-    ) -> Subplot:
+    def _setup_subplot(figure, x_max: float, x_min: float, y_max: float, y_min: float) -> Subplot:
         subplot = figure.add_subplot(1, 1, 1)
         subplot.set_ylim(y_min, y_max)
         subplot.set_xlim(x_min, x_max)
@@ -200,9 +195,7 @@ class EcgPlotter:
         subplot.spines["left"].set_visible(False)
         return subplot
 
-    def _setup_figure(
-        self, display_factor: float, rows: int, length_seconds: float
-    ) -> Figure:
+    def _setup_figure(self, display_factor: float, rows: int, length_seconds: float) -> Figure:
         figure = plt.figure(
             figsize=(
                 length_seconds * self.columns * display_factor,
@@ -228,17 +221,14 @@ class EcgPlotter:
 
     def _set_line_style(
         self,
-    ) -> tuple[
-        tuple[float, float, float],
-        tuple[float, float, float],
-        tuple[float, float, float],
-    ]:
+    ) -> tuple[tuple[float, float, float], tuple[float, float, float], tuple[float, float, float]]:
         if self.color_style == ColorStyle.color:
             color_major_grid = (1, 0, 0)
             color_minor_grid = (1, 0.7, 0.7)
             color_line = (0, 0, 0.7)
         elif self.color_style in [
             ColorStyle.black_and_white,
+            ColorStyle.grey_scale,
             ColorStyle.mask,
         ]:
             color_major_grid = (0.4, 0.4, 0.4)
@@ -319,11 +309,11 @@ class EcgPlotter:
         agg.draw()
         return np.asarray(agg.buffer_rgba())
 
-    @staticmethod
-    def _convert_to_mask(image: ndarray) -> ndarray:
-        return images.convert_to_mask(image)
+    # @staticmethod
+    # def _convert_to_mask(image: ndarray) -> ndarray:
+    #     return images.convert_to_mask(image)
 
-    def _set_style(self, color_style: ColorStyle, show_grid: ShowGrid):
+    def _set_style(self, color_style: ColorStyle, show_grid: bool):
         if show_grid != self.show_grid:
             self.show_grid = show_grid
 
@@ -333,7 +323,7 @@ class EcgPlotter:
                 self._set_mask_style()
 
     def _set_mask_style(self):
-        self.show_grid = ShowGrid.false
+        self.show_grid = False
         self.show_lead_name = False
         self.title = ""
 

@@ -3,15 +3,6 @@ from typing import List
 import numpy as np
 import pytest
 
-# def setup_test_record_data():
-#     path = os.path.join(sys.path[0], 'test_data', '00001_hr.json')
-#     with open(path) as json_file:
-#         data = json.load(json_file)
-#     record = Leads.from_json(data)
-#     assert type(record) is Leads
-#     return record
-
-
 # def test_current_directory():
 #     # path = pytest.__pytestPDB._config.rootdir
 #     # path = py.path.local
@@ -22,7 +13,15 @@ import pytest
 from ecgai_drawing.enums.ecg_lead_name import LeadName
 from ecgai_drawing.models.ecg_lead import Lead
 from ecgai_drawing.models.ecg_leads import Leads
-from tests.test_helper import single_valid_record_path_name, setup_test_record_data
+from tests.test_factory import setup_test_record_data, single_valid_record_path_name
+
+# def setup_test_record_data():
+#     path = os.path.join(sys.path[0], 'test_data', '00001_hr.json')
+#     with open(path) as json_file:
+#         data = json.load(json_file)
+#     record = Leads.from_json(data)
+#     assert type(record) is Leads
+#     return record
 
 
 # @pytest.mark.asyncio
