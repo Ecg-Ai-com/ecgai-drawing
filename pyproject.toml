@@ -1,20 +1,19 @@
 [tool.poetry]
 name = "ecgai-drawing"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["RobC <rob.clapham@gmail.com>"]
 
 [tool.poetry.dependencies]
 #TODO change poetry version to <4.0, currently required by scipy
-python = "^3.10"
+python = "^3.10,<3.12"
 numpy = "^1.23.2"
 aenum = "^3.1.11"
 pydantic = "^1.9.2"
 matplotlib = "^3.5.3"
 scikit-image = "^0.19.3"
+scipy = "^1.9.0"
 opencv-python = "^4.6.0"
-definitions = "^0.2.0"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
