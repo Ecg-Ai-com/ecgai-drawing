@@ -10,16 +10,8 @@ from ecgai_drawing.models.ecg_leads import Leads
 # from definitions import ROOT_DIR
 
 valid_record_path_name = {
-    "test_data/00001_hr.json",
-    "test_data/00002_hr.json",
-    "test_data/00003_hr.json",
-    "test_data/00004_hr.json",
-    "test_data/00005_hr.json",
-    "test_data/00006_hr.json",
-    "test_data/00007_hr.json",
-    "test_data/00008_hr.json",
-    "test_data/00009_hr.json",
-    "test_data/00010_hr.json",
+    "tests/test_data/00001_hr.json",
+    "tests/test_data/10001_hr.json",
 }
 
 single_valid_record_path_name = {

@@ -14,8 +14,9 @@ class Leads(MyBaseModel):
         d = dict(RecordName=record_name, SampleRate=sample_rate, Leads=leads)
         return cls.from_dict(d)
 
-    def to_json(self):
-        """
-        Not implemented in this model as issues with EcgLeadNameOld not Json serializable and this model will not be saved
-        """
-        raise NotImplementedError()
+    # def to_json(self):
+    #
+    #     """
+    #     Not implemented in this model as issues with EcgLeadNameOld not Json serializable and this model will not be saved
+    #     """
+    #     raise NotImplementedError()

@@ -1,4 +1,3 @@
-from ecgai_drawing.enums.color_style import ColorStyle
 from ecgai_drawing.enums.ecg_lead_name import LeadName
 
 
@@ -11,7 +10,7 @@ class OrderedEnumTestObject(object):
 
 
 # noinspection DuplicatedCode
-def get_ecg_leads_list() -> list[OrderedEnumTestObject]:
+def get_unordered_ecg_leads_list() -> list[OrderedEnumTestObject]:
     enum_list = list[OrderedEnumTestObject]()
 
     lead1 = OrderedEnumTestObject(lead=LeadName.V1)
@@ -53,8 +52,8 @@ def get_ecg_leads_list() -> list[OrderedEnumTestObject]:
 
 
 # noinspection DuplicatedCode
-def test_unsorted_ecg_lead_enum():
-    sut = get_ecg_leads_list()
+def test_sorted_ecg_lead_enum():
+    sut = get_unordered_ecg_leads_list()
     lead1 = sut[0].lead
     lead2 = sut[1].lead
     lead3 = sut[2].lead
@@ -83,8 +82,8 @@ def test_unsorted_ecg_lead_enum():
 
 
 # noinspection DuplicatedCode
-def test_sorted_ecg_lead_enum():
-    sut = get_ecg_leads_list()
+def test_sorted_unsorted_ecg_lead_enum():
+    sut = get_unordered_ecg_leads_list()
     sut.sort()
     lead1 = sut[0].lead
     lead2 = sut[1].lead
@@ -133,6 +132,7 @@ def test_ecg_lead_enum_to_string_from_lower_case():
     label = lead1.name
     print(label)
     assert label == "aVL"
+
 
 # def test_protobuf_ecg_lead_name_to_lead_name():
 #     v1 = EcgLeadName.V1

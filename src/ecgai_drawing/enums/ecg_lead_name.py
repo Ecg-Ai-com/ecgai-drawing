@@ -1,7 +1,7 @@
 from ecgai_drawing.enums.enum_ordered_base import OrderedEnum
 
 
-class LeadName(OrderedEnum):
+class LeadName(int, OrderedEnum):
     I = 1
     II = 2
     III = 3
@@ -20,6 +20,8 @@ class LeadName(OrderedEnum):
     def _missing_name_(cls, name):
         # noinspection PyTypeChecker
         for member in cls:
-            if member.name.lower() == name.lower():
+            if member.name.lower() == str(name).lower():
+                return member
+            elif str(member.value) == str(name):
                 return member
         return cls.Unknown
