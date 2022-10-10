@@ -92,7 +92,10 @@ class DrawEcgPlot:
 
     def _add_artifact_to_image(self, image):
 
-        if self._plot_request.color_style != ColorStyle.mask and self._plot_request.artifact != Artifact.none:
+        if (
+            self._plot_request.color_style != ColorStyle.mask
+            and self._plot_request.artifact != Artifact.artifact_unspecified
+        ):
 
             if self._plot_request.artifact == Artifact.pepper:
                 image = images.add_pepper_to_image(image=image)

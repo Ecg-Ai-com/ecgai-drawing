@@ -136,7 +136,7 @@ def test_create_draw_ecg_plot_with_color_with_grid(record_path_name, tmp_path):
         ecg_leads=ecg_leads,
         color_style=ColorStyle.color,
         show_grid=True,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
 
@@ -166,7 +166,7 @@ def test_create_draw_ecg_plot_with_color_no_grid(record_path_name, tmp_path):
         ecg_leads=ecg_leads,
         color_style=ColorStyle.color,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -195,7 +195,7 @@ def test_create_draw_ecg_plot_with_grey_scale_with_grid(record_path_name, tmp_pa
         ecg_leads=ecg_leads,
         color_style=ColorStyle.grey_scale,
         show_grid=True,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -224,7 +224,7 @@ def test_create_draw_ecg_plot_with_grey_scale_without_grid(record_path_name, tmp
         ecg_leads=ecg_leads,
         color_style=ColorStyle.grey_scale,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -311,7 +311,7 @@ def test_create_draw_ecg_plot_with_mask(record_path_name, tmp_path):
         ecg_leads=ecg_leads,
         color_style=ColorStyle.mask,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -345,7 +345,7 @@ def test_create_draw_ecg_plot_with_color_no_grid_compare_against_base_image(reco
         ecg_leads=ecg_leads,
         color_style=ColorStyle.color,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -381,7 +381,7 @@ def test_create_draw_ecg_plot_with_color_with_grid_compare_against_base_image(re
         ecg_leads=ecg_leads,
         color_style=ColorStyle.color,
         show_grid=True,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -417,7 +417,7 @@ def test_create_draw_ecg_plot_with_grey_scale_with_grid_compare_against_base_ima
         ecg_leads=ecg_leads,
         color_style=ColorStyle.grey_scale,
         show_grid=True,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -453,7 +453,7 @@ def test_create_draw_ecg_plot_with_grey_scale_without_grid_compare_against_base_
         ecg_leads=ecg_leads,
         color_style=ColorStyle.grey_scale,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -490,7 +490,7 @@ def test_create_draw_ecg_plot_with_mask_compare_against_base_image(record_path_n
         ecg_leads=ecg_leads,
         color_style=ColorStyle.mask,
         show_grid=False,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()
@@ -528,7 +528,7 @@ def test_create_draw_ecg_plot_with_mask_grid_true_overridden_to_false_compare_ag
         ecg_leads=ecg_leads,
         color_style=ColorStyle.mask,
         show_grid=True,
-        artifact=Artifact.none,
+        artifact=Artifact.artifact_unspecified,
         file_name="00001",
     )
     draw_plot = DrawEcgPlot()

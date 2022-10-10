@@ -2,7 +2,7 @@ from enum import IntEnum
 
 
 class Artifact(IntEnum):
-    error = 0
+    artifact_unspecified = 0
     salt = 1
     pepper = 2
     salt_and_pepper = 3
