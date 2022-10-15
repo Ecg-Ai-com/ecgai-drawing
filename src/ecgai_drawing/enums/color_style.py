@@ -2,10 +2,10 @@ from enum import IntEnum
 
 
 class ColorStyle(IntEnum):
-    black_and_white = 1  # 'black_and_white'
-    color = 2  # 'color'
-    mask = 3  # 'mask'
-    grey_scale = 4
+    BLACK_AND_WHITE = 1  # 'BLACK_AND_WHITE'
+    COLOR = 2  # 'COLOR'
+    MASK = 3  # 'MASK'
+    GREY_SCALE = 4
     # binary = 4  # 'binary'
 
     # @classmethod

@@ -2,10 +2,10 @@ from enum import IntEnum
 
 
 class Artifact(IntEnum):
-    artifact_unspecified = 0
-    salt = 1
-    pepper = 2
-    salt_and_pepper = 3
-    poisson = 4
-    speckle = 5
-    none = 6
+    ARTIFACT_UNSPECIFIED = 0
+    SALT = 1
+    PEPPER = 2
+    SALT_AND_PEPPER = 3
+    POISSON = 4
+    SPECKLE = 5
+    NONE = 6

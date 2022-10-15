@@ -42,7 +42,7 @@ class TestEcgPlot:
         save_image(image=image, image_name="test.png", save_path=str(tmp_path))
         # await ecg_plotter.save(file_name='test', path=str(tmp_path), extension='.png')
         # Assert
-        assert ecg_plotter.color_style == ColorStyle.color
+        assert ecg_plotter.color_style == ColorStyle.COLOR
         assert ecg_plotter.show_grid == ShowGrid.false
         number_of_files = len(os.listdir(tmp_path))
         assert number_of_files == 1
@@ -57,7 +57,7 @@ class TestEcgPlot:
         image = ecg_plotter.plot(sample_rate=record.sample_rate, ecg_leads=record, show_grid=show_grid)
         save_image(image=image, image_name="test.png", save_path=str(tmp_path))
         # Assert
-        assert ecg_plotter.color_style == ColorStyle.color
+        assert ecg_plotter.color_style == ColorStyle.COLOR
         assert ecg_plotter.show_grid == show_grid
         number_of_files = len(os.listdir(tmp_path))
         assert number_of_files == 1
@@ -67,7 +67,7 @@ class TestEcgPlot:
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
-        color_style = ColorStyle.black_and_white
+        color_style = ColorStyle.BLACK_AND_WHITE
         # Act
         image = ecg_plotter.plot(
             sample_rate=record.sample_rate,
@@ -88,7 +88,7 @@ class TestEcgPlot:
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
-        color_style = ColorStyle.black_and_white
+        color_style = ColorStyle.BLACK_AND_WHITE
         show_grid = ShowGrid.false
         # Act
         image = ecg_plotter.plot(
@@ -109,7 +109,7 @@ class TestEcgPlot:
         # Arrange
         record = setup_test_record_data(path_name=record_path_name)
         ecg_plotter = EcgPlotter()
-        color_style = ColorStyle.mask
+        color_style = ColorStyle.MASK
         show_grid = ShowGrid.true
         # Act
         image = ecg_plotter.plot(

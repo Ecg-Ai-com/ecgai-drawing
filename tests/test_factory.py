@@ -47,7 +47,7 @@ COLOR_WITHOUT_GRID_NAME = "color_without_grid.png"
 COLOR_WITH_GRID_NAME = "color_with_grid.png"
 GREY_SCALE_WITH_GRID_NAME = "grey_scale_with_grid.png"
 GREY_SCALE_WITHOUT_GRID_NAME = "grey_scale_without_grid.png"
-MASK_NAME = "mask.png"
+MASK_NAME = "MASK.png"
 
 
 def data_directory() -> pathlib.Path:

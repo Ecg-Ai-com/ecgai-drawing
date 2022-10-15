@@ -1,39 +1,60 @@
 from numpy import ndarray
 
 from ecgai_drawing import images
-from ecgai_drawing.ecg_plot_request import EcgPlotRequest
-from ecgai_drawing.ecg_plot_response import EcgPlotResponse
+from ecgai_drawing.ecg_plot_image import EcgPlotImage
 from ecgai_drawing.ecg_plotter import EcgPlotter
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
 from ecgai_drawing.images import DEFAULT_FILE_EXTENSION, convert_to_bytes
+from ecgai_drawing.models.ecg_leads import Leads
 
 
-class DrawEcgPlot:
-    _plot_request: EcgPlotRequest
+class CreateEcgPlot:
+    # _plot_request: EcgPlotRequest
+    transaction_id: str
+    record_name: str
+    sample_rate: int
+    color_style: ColorStyle
+    show_grid: bool
+    artifact: Artifact
+    ecg_leads: Leads
+    file_name: str
 
-    # def __init__(self, plot_parameters: EcgPlotRequest):
-    # self._plot_request = plot_parameters
-
-    # self.transaction_id = transaction_id
-    # self.record_name = record_name
-    # self.color_style = color_style
-    # self.artifact = artifact
-    # self.show_grid = show_grid
+    def __init__(
+        self,
+        transaction_id: str,
+        record_name: str,
+        sample_rate: int,
+        ecg_leads: Leads,
+        file_name: str = "",
+        color_style: ColorStyle = ColorStyle.BLACK_AND_WHITE,
+        show_grid: bool = True,
+        artifact: Artifact = Artifact.NONE,
+    ):
+        self.transaction_id = transaction_id
+        self.record_name = record_name
+        self.sample_rate = sample_rate
+        self.ecg_leads = ecg_leads
+        if file_name == "":
+            self.file_name = record_name
+        else:
+            self.file_name = file_name
+        self.color_style = color_style
+        self.artifact = artifact
+        self.show_grid = show_grid
 
     # ecg = 6;
 
-    def handle(self, plot_request: EcgPlotRequest) -> EcgPlotResponse:
-        self._plot_request = plot_request
+    def handle(self) -> EcgPlotImage:
         image = self._create_image()
-        return EcgPlotResponse.create(
-            transaction_id=self._plot_request.transaction_id,
-            record_name=self._plot_request.record_name,
-            file_name=self._plot_request.file_name,
+        return EcgPlotImage.create(
+            transaction_id=self.transaction_id,
+            record_name=self.record_name,
+            file_name=self.file_name,
             file_extension=DEFAULT_FILE_EXTENSION,
             image=convert_to_bytes(image=image),
         )
-        # return EcgPlotResponse(
+        # return EcgPlotImage(
         #     transaction_id=self._plot_request.transaction_id,
         #     record_name=self._plot_request.record_name,
         #     file_name=self._plot_request.file_name,
@@ -56,11 +77,11 @@ class DrawEcgPlot:
     def _create_image(self) -> ndarray:
         ecg_plotter = EcgPlotter()
         image = ecg_plotter.plot(
-            sample_rate=self._plot_request.sample_rate,
-            ecg_leads=self._plot_request.ecg_leads,
-            title=self._plot_request.record_name,
-            color_style=self._plot_request.color_style,
-            show_grid=self._plot_request.show_grid,
+            sample_rate=self.sample_rate,
+            ecg_leads=self.ecg_leads,
+            title=self.record_name,
+            color_style=self.color_style,
+            show_grid=self.show_grid,
         )
         image = self._add_artifact_to_image(image)
         image = self._convert_format(image)
@@ -68,22 +89,22 @@ class DrawEcgPlot:
 
     def _convert_format(self, image):
 
-        if self._plot_request.color_style in [ColorStyle.color]:
+        if self.color_style in [ColorStyle.COLOR]:
             return image
 
-        if self._plot_request.color_style == ColorStyle.black_and_white:
+        if self.color_style == ColorStyle.BLACK_AND_WHITE:
             image = images.convert_to_black_and_white(image=image)
-            self._plot_request.file_name = f"bw_{self._plot_request.file_name}"
-        elif self._plot_request.color_style == ColorStyle.grey_scale:
+            self.file_name = f"bw_{self.file_name}"
+        elif self.color_style == ColorStyle.GREY_SCALE:
             image = images.convert_to_grey_scale(image=image)
-            self._plot_request.file_name = f"gs_{self._plot_request.file_name}"
-        elif self._plot_request.color_style == ColorStyle.mask:
+            self.file_name = f"gs_{self.file_name}"
+        elif self.color_style == ColorStyle.MASK:
             image = images.convert_to_mask(image=image)
-            self._plot_request.file_name = f"mask_{self._plot_request.file_name}"
+            self.file_name = f"mask_{self.file_name}"
 
             #
             # if self.color_style in [
-            #     ColorStyle.mask,
+            #     ColorStyle.MASK,
             # ]:
             #     # image = self.convert_to_binary(image=image)
             #     image = self.convert_to_mask(image=image)
@@ -92,20 +113,17 @@ class DrawEcgPlot:
 
     def _add_artifact_to_image(self, image):
 
-        if (
-            self._plot_request.color_style != ColorStyle.mask
-            and self._plot_request.artifact != Artifact.artifact_unspecified
-        ):
+        if self.color_style != ColorStyle.MASK and self.artifact != Artifact.ARTIFACT_UNSPECIFIED:
 
-            if self._plot_request.artifact == Artifact.pepper:
+            if self.artifact == Artifact.PEPPER:
                 image = images.add_pepper_to_image(image=image)
-                self._plot_request.file_name = f"p_{self._plot_request.file_name}"
-            elif self._plot_request.artifact == Artifact.salt:
+                self.file_name = f"p_{self.file_name}"
+            elif self.artifact == Artifact.SALT:
                 image = images.add_salt_to_image(image=image)
-                self._plot_request.file_name = f"s_{self._plot_request.file_name}"
-            elif self._plot_request.artifact == Artifact.salt_and_pepper:
+                self.file_name = f"s_{self.file_name}"
+            elif self.artifact == Artifact.SALT_AND_PEPPER:
                 image = images.add_salt_and_pepper_to_image(image=image)
-                self._plot_request.file_name = f"sp_{self._plot_request.file_name}"
+                self.file_name = f"sp_{self.file_name}"
             else:
                 raise ValueError()
         return image

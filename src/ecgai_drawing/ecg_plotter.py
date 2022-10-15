@@ -13,7 +13,7 @@ from ecgai_drawing import images
 from ecgai_drawing.enums.color_style import ColorStyle
 from ecgai_drawing.models.ecg_leads import Leads
 
-# from skimage.color import rgba2rgb
+# from skimage.COLOR import rgba2rgb
 
 
 @dataclass
@@ -38,7 +38,7 @@ class EcgPlotter:
     lead_order: list = None
     sample_rate: int = 500
     title: str = "ECG 12 lead"
-    color_style: ColorStyle = ColorStyle.color
+    color_style: ColorStyle = ColorStyle.COLOR
     line_width: float = 0.5
     columns: int = 2
     row_height: int = 6
@@ -52,7 +52,7 @@ class EcgPlotter:
         sample_rate: int,
         ecg_leads: Leads,
         title: str = "ECG 12 lead",
-        color_style: ColorStyle = ColorStyle.color,
+        color_style: ColorStyle = ColorStyle.COLOR,
         show_grid: bool = False,
     ) -> ndarray:
         """
@@ -61,8 +61,8 @@ class EcgPlotter:
             title: Title shown at the top of the ECG printout
             sample_rate: Number of signal samples per second
             ecg_leads: Leads collection for drawing onto ECG plot
-            color_style: Color style of output, default is color.
-            Other options are black and white, mask and binary format
+            color_style: Color style of output, default is COLOR.
+            Other options are black and white, MASK and binary format
             show_grid: Show ECG grids on plot
 
         Returns:
@@ -77,7 +77,7 @@ class EcgPlotter:
         # convert from rgba format to rgb format
         # image = rgba2rgb(rgba=image)
         image = images.convert_from_rgba_to_rgb(image=image)
-        # if self.color_style in [ColorStyle.mask]:
+        # if self.color_style in [ColorStyle.MASK]:
         # image = images.convert_to_black_and_white(image=image)
         # image = images.convert_to_mask(image=image)
         return image
@@ -222,14 +222,14 @@ class EcgPlotter:
     def _set_line_style(
         self,
     ) -> tuple[tuple[float, float, float], tuple[float, float, float], tuple[float, float, float]]:
-        if self.color_style == ColorStyle.color:
+        if self.color_style == ColorStyle.COLOR:
             color_major_grid = (1, 0, 0)
             color_minor_grid = (1, 0.7, 0.7)
             color_line = (0, 0, 0.7)
         elif self.color_style in [
-            ColorStyle.black_and_white,
-            ColorStyle.grey_scale,
-            ColorStyle.mask,
+            ColorStyle.BLACK_AND_WHITE,
+            ColorStyle.GREY_SCALE,
+            ColorStyle.MASK,
         ]:
             color_major_grid = (0.4, 0.4, 0.4)
             color_minor_grid = (0.75, 0.75, 0.75)
@@ -272,8 +272,8 @@ class EcgPlotter:
 
         Args:
             subplot:
-            color_major_grid: Line color for major grid lines
-            color_minor_grid: Line color for minor grid lines
+            color_major_grid: Line COLOR for major grid lines
+            color_minor_grid: Line COLOR for minor grid lines
             display_factor:
             x_max: X axis maximum position value
             x_min: X axis minimum position value
@@ -319,7 +319,7 @@ class EcgPlotter:
 
         if color_style != self.color_style:
             self.color_style = color_style
-            if self.color_style in [ColorStyle.mask]:
+            if self.color_style in [ColorStyle.MASK]:
                 self._set_mask_style()
 
     def _set_mask_style(self):

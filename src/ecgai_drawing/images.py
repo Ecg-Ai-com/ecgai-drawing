@@ -10,10 +10,12 @@ from numpy import ndarray
 DEFAULT_FILE_EXTENSION = ".png"
 
 
-def load_image(image_name: str, image_path: Path, as_gray: bool = False) -> ndarray:
+def load_image(image_name: str, image_path: Path) -> ndarray:
     file_name = os.path.join(image_path, image_name)
     print("the file path for load is " + file_name)
-    return skimage.io.imread(fname=file_name, as_gray=as_gray)
+    return skimage.io.imread(fname=file_name)
+    # TODO cv.imread or cv.imwrite is changing the colour of the ecg line from red to blue, find solution
+    # return cv2.imread(filename=file_name)
 
 
 def save_image_as_ubyte(image: ndarray, image_name: str, save_path: str):
@@ -28,7 +30,9 @@ def save_image_as_ubyte(image: ndarray, image_name: str, save_path: str):
 
 def save_image(image: ndarray, image_name: str, save_path: str):
     file_name = os.path.join(save_path, image_name)
+    # file_name2 = os.path.join(save_path, image_name+'ski')
     skimage.io.imsave(fname=file_name, arr=image)
+    # cv2.imwrite(filename=file_name, img=image)
 
 
 def convert_to_mask(image: ndarray) -> ndarray:
@@ -47,7 +51,7 @@ def convert_to_black_and_white(image: ndarray) -> ndarray:
 
 def convert_to_grey_scale(image: ndarray) -> ndarray:
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # return skimage.color.rgb2gray(image)
+    # return skimage.COLOR.rgb2gray(image)
 
 
 def convert_to_bytes(image: ndarray) -> bytes:
@@ -93,7 +97,7 @@ def convert_from_base64_string(stream: str) -> ndarray:
 #
 def convert_from_rgba_to_rgb(image: ndarray) -> ndarray:
     return cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
-    # return skimage.color.rgba2rgb(image)
+    # return skimage.COLOR.rgba2rgb(image)
 
 
 #

@@ -6,8 +6,7 @@ import numpy as np
 import pytest
 from matplotlib.testing.compare import compare_images
 
-from ecgai_drawing.draw_ecg_plot import DrawEcgPlot
-from ecgai_drawing.ecg_plot_request import EcgPlotRequest
+from ecgai_drawing.create_ecg_plot import CreateEcgPlot
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
 from tests.test_factory import (
@@ -78,20 +77,29 @@ def test_create_draw_ecg_plot_with_color_no_grid_salt_and_peper(record_path_name
     # Arrange
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.COLOR,
+    #     show_grid=False,
+    #     artifact=Artifact.SALT_AND_PEPPER,
+    #     file_name="00001",
+    # )
+
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.color,
+        color_style=ColorStyle.COLOR,
         show_grid=False,
-        artifact=Artifact.salt_and_pepper,
+        artifact=Artifact.SALT_AND_PEPPER,
         file_name="00001",
     )
-
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -129,20 +137,29 @@ def test_create_draw_ecg_plot_with_color_with_grid(record_path_name, tmp_path):
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.COLOR,
+    #     show_grid=True,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.color,
+        color_style=ColorStyle.COLOR,
         show_grid=True,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -159,19 +176,28 @@ def test_create_draw_ecg_plot_with_color_no_grid(record_path_name, tmp_path):
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.COLOR,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.color,
+        color_style=ColorStyle.COLOR,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -188,19 +214,28 @@ def test_create_draw_ecg_plot_with_grey_scale_with_grid(record_path_name, tmp_pa
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.GREY_SCALE,
+    #     show_grid=True,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.grey_scale,
+        color_style=ColorStyle.GREY_SCALE,
         show_grid=True,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -217,19 +252,28 @@ def test_create_draw_ecg_plot_with_grey_scale_without_grid(record_path_name, tmp
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.GREY_SCALE,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.grey_scale,
+        color_style=ColorStyle.GREY_SCALE,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -246,19 +290,28 @@ def test_create_draw_ecg_plot_with_black_and_white_with_grid_salt(record_path_na
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.BLACK_AND_WHITE,
+    #     show_grid=True,
+    #     artifact=Artifact.SALT,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.black_and_white,
+        color_style=ColorStyle.BLACK_AND_WHITE,
         show_grid=True,
-        artifact=Artifact.salt,
+        artifact=Artifact.SALT,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -275,19 +328,28 @@ def test_create_draw_ecg_plot_with_black_and_white_with_grid_salt_and_peper(reco
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.BLACK_AND_WHITE,
+    #     show_grid=True,
+    #     artifact=Artifact.SALT_AND_PEPPER,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.black_and_white,
+        color_style=ColorStyle.BLACK_AND_WHITE,
         show_grid=True,
-        artifact=Artifact.salt_and_pepper,
+        artifact=Artifact.SALT_AND_PEPPER,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -303,20 +365,29 @@ def test_create_draw_ecg_plot_with_mask(record_path_name, tmp_path):
     # Arrange
     ecg_leads = setup_test_record_data(path_name=record_path_name)
     transaction_id = uuid.uuid4().hex
-
-    request = EcgPlotRequest.create(
+    #
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.MASK,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.mask,
+        color_style=ColorStyle.MASK,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -338,19 +409,28 @@ def test_create_draw_ecg_plot_with_color_no_grid_compare_against_base_image(reco
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.COLOR,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.color,
+        color_style=ColorStyle.COLOR,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -374,19 +454,28 @@ def test_create_draw_ecg_plot_with_color_with_grid_compare_against_base_image(re
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.COLOR,
+    #     show_grid=True,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.color,
+        color_style=ColorStyle.COLOR,
         show_grid=True,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -410,19 +499,28 @@ def test_create_draw_ecg_plot_with_grey_scale_with_grid_compare_against_base_ima
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.GREY_SCALE,
+    #     show_grid=True,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.grey_scale,
+        color_style=ColorStyle.GREY_SCALE,
         show_grid=True,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -446,19 +544,28 @@ def test_create_draw_ecg_plot_with_grey_scale_without_grid_compare_against_base_
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.GREY_SCALE,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.grey_scale,
+        color_style=ColorStyle.GREY_SCALE,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -483,19 +590,28 @@ def test_create_draw_ecg_plot_with_mask_compare_against_base_image(record_path_n
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.MASK,
+    #     show_grid=False,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.mask,
+        color_style=ColorStyle.MASK,
         show_grid=False,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -521,19 +637,28 @@ def test_create_draw_ecg_plot_with_mask_grid_true_overridden_to_false_compare_ag
 
     transaction_id = uuid.uuid4().hex
 
-    request = EcgPlotRequest.create(
+    # request = EcgPlotRequest.create(
+    #     transaction_id=transaction_id,
+    #     record_name="ECG 12 lead",
+    #     sample_rate=ecg_leads.sample_rate,
+    #     ecg_leads=ecg_leads,
+    #     color_style=ColorStyle.MASK,
+    #     show_grid=True,
+    #     artifact=Artifact.ARTIFACT_UNSPECIFIED,
+    #     file_name="00001",
+    # )
+    draw_plot = CreateEcgPlot(
         transaction_id=transaction_id,
         record_name="ECG 12 lead",
         sample_rate=ecg_leads.sample_rate,
         ecg_leads=ecg_leads,
-        color_style=ColorStyle.mask,
+        color_style=ColorStyle.MASK,
         show_grid=True,
-        artifact=Artifact.artifact_unspecified,
+        artifact=Artifact.ARTIFACT_UNSPECIFIED,
         file_name="00001",
     )
-    draw_plot = DrawEcgPlot()
     # Act
-    draw_response = draw_plot.handle(request)
+    draw_response = draw_plot.handle()
 
     # Assert
     file_name = image_name(draw_response)
@@ -550,7 +675,7 @@ def test_create_draw_ecg_plot_with_mask_grid_true_overridden_to_false_compare_ag
 # def test_create_draw_ecg_plot_request_and_save_as_json( record_path_name, tmp_path
 # ): # Arrange ecg_leads = setup_test_record_data(path_name=record_path_name)
 # draw_request = DrawEcgPlotRequestOld.create(ecg_leads=ecg_leads,
-# color_style=ColorStyle.color, show_grid=ShowGrid.true,
+# color_style=ColorStyle.COLOR, show_grid=ShowGrid.true,
 # artifact=Artifact.salt_and_pepper) draw_plot = EcgPlotRequest(
 # draw_request=draw_request) json_value = draw_plot.handle() file_name =
 # 'save_as_json.json' file_path = os.path.join(tmp_path, file_name) with open(
@@ -568,7 +693,7 @@ def test_create_draw_ecg_plot_with_mask_grid_true_overridden_to_false_compare_ag
 #     ecg_leads = setup_test_record_data(path_name=record_path_name)
 #
 # transaction_id = uuid.uuid4().hex draw_request = DrawEcgPlotRequestOld.create(
-# transaction_id=transaction_id, ecg_leads=ecg_leads, color_style=ColorStyle.color,
+# transaction_id=transaction_id, ecg_leads=ecg_leads, color_style=ColorStyle.COLOR,
 # show_grid=Grid.true, artifact=Artifact.salt_and_pepper) draw_ecg =
 # EcgPlotRequest(draw_request=draw_request)
 #
