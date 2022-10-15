@@ -73,6 +73,7 @@ def image_name(draw_response) -> str:
 
 
 @pytest.mark.parametrize("record_path_name", single_valid_record_path_name)
+@pytest.mark.asyncio
 def test_create_draw_ecg_plot_with_color_no_grid_salt_and_peper(record_path_name, tmp_path):
     # Arrange
     ecg_leads = setup_test_record_data(path_name=record_path_name)

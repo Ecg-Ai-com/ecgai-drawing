@@ -113,7 +113,11 @@ class CreateEcgPlot:
 
     def _add_artifact_to_image(self, image):
 
-        if self.color_style != ColorStyle.MASK and self.artifact != Artifact.ARTIFACT_UNSPECIFIED:
+        if (
+            self.color_style != ColorStyle.MASK
+            or self.artifact != Artifact.ARTIFACT_UNSPECIFIED
+            or self.artifact != Artifact.NONE
+        ):
 
             if self.artifact == Artifact.PEPPER:
                 image = images.add_pepper_to_image(image=image)
@@ -124,8 +128,8 @@ class CreateEcgPlot:
             elif self.artifact == Artifact.SALT_AND_PEPPER:
                 image = images.add_salt_and_pepper_to_image(image=image)
                 self.file_name = f"sp_{self.file_name}"
-            else:
-                raise ValueError()
+            # else:
+            #     raise ValueError()
         return image
 
     # @staticmethod
