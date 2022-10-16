@@ -15,7 +15,7 @@ import pytest
 from ecgai_drawing.enums.ecg_lead_name import LeadName
 from ecgai_drawing.models.ecg_lead import Lead
 from ecgai_drawing.models.ecg_leads import Leads
-from tests.test_draw_ecg_plot import count_files
+from tests.test_create_ecg_plot import count_files
 from tests.test_factory import setup_test_record_data, valid_record_path_name
 
 # def setup_test_record_data():

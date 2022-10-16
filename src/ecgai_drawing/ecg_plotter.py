@@ -75,11 +75,11 @@ class EcgPlotter:
         image = self._create_plot(ecg_leads)
 
         # convert from rgba format to rgb format
-        # image = rgba2rgb(rgba=image)
         image = images.convert_from_rgba_to_rgb(image=image)
-        # if self.color_style in [ColorStyle.MASK]:
-        # image = images.convert_to_black_and_white(image=image)
-        # image = images.convert_to_mask(image=image)
+
+        # convert from rgb format to bgr format required by openCv
+        image = images.convert_from_rgb_to_bgr(image=image)
+
         return image
 
     def _draw_plot(self, ecg_leads: Leads):

@@ -5,7 +5,11 @@ from ecgai_drawing.ecg_plot_image import EcgPlotImage
 from ecgai_drawing.ecg_plotter import EcgPlotter
 from ecgai_drawing.enums.artifact import Artifact
 from ecgai_drawing.enums.color_style import ColorStyle
-from ecgai_drawing.images import DEFAULT_FILE_EXTENSION, convert_to_bytes
+from ecgai_drawing.images import (
+    DEFAULT_FILE_EXTENSION,
+    convert_from_rgba_to_rgb,
+    convert_to_bytes,
+)
 from ecgai_drawing.models.ecg_leads import Leads
 
 
@@ -83,6 +87,7 @@ class CreateEcgPlot:
             color_style=self.color_style,
             show_grid=self.show_grid,
         )
+        image = convert_from_rgba_to_rgb(image)
         image = self._add_artifact_to_image(image)
         image = self._convert_format(image)
         return image
