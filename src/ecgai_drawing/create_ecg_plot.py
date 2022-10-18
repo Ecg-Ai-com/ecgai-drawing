@@ -90,7 +90,13 @@ class CreateEcgPlot:
         image = convert_from_rgba_to_rgb(image)
         image = self._add_artifact_to_image(image)
         image = self._convert_format(image)
+        self._is_grid_name()
         return image
+
+    def _is_grid_name(self):
+        if self.color_style != ColorStyle.MASK:
+            if not self.show_grid:
+                self.file_name = f"ng_{self.file_name}"
 
     def _convert_format(self, image):
 
