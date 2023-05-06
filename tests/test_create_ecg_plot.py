@@ -107,7 +107,7 @@ def test_create_draw_ecg_plot_with_color_no_grid_salt_and_peper(record_path_name
     save_byte_image_to_test_directory(byte_image=draw_response.image, image_name=file_name, path=tmp_path)
 
     count = count_files(tmp_path, file_name)
-    assert file_name == "sp_00001.png"
+    assert file_name == "ng_sp_00001.png"
     assert count == 1
 
     # print(len(l))
@@ -205,7 +205,7 @@ def test_create_draw_ecg_plot_with_color_no_grid(record_path_name, tmp_path):
     save_byte_image_to_test_directory(byte_image=draw_response.image, image_name=file_name, path=tmp_path)
 
     count = count_files(tmp_path, file_name)
-    assert file_name == "00001.png"
+    assert file_name == "ng_00001.png"
     assert count == 1
 
 
@@ -281,7 +281,7 @@ def test_create_draw_ecg_plot_with_grey_scale_without_grid(record_path_name, tmp
     save_byte_image_to_test_directory(byte_image=draw_response.image, image_name=file_name, path=tmp_path)
 
     count = count_files(tmp_path, file_name)
-    assert file_name == "gs_00001.png"
+    assert file_name == "ng_gs_00001.png"
     assert count == 1
 
 
