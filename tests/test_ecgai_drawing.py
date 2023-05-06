@@ -1,4 +1,4 @@
-from src.ecgai_drawing import __version__
+from ecgai_drawing import __version__
 
 
 def test_version():
