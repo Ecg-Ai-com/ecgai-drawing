@@ -77,8 +77,93 @@ def convert_from_base64_string(stream: str) -> ndarray:
     img = cv2.imdecode(jpg_as_np, flags=1)
     return img
 
-    # image = base64.b64decode(stream)
-    # return convert_from_bytes(image)
+
+#
+# def combine_color_images(base_image: ndarray, top_image: ndarray) -> ndarray:
+#     rows, cols, channels = top_image.shape
+#     roi = base_image[0:rows, 0:cols]
+#
+#     top_image_gray = convert_to_grey_scale(top_image)
+#
+#     ret, mask = cv2.threshold(top_image_gray, 200, 255, cv2.THRESH_BINARY)
+#
+#     mask_inv = cv2.bitwise_not(mask)
+#
+#     img_back = cv2.bitwise_and(roi, roi, mask=mask)
+#
+#     top_image_colour = cv2.bitwise_and(top_image, top_image, mask=mask_inv)
+#     # return top_image_colour
+#     img_out = cv2.add(img_back, top_image_colour)
+#     base_image[0:rows, 0:cols] = img_out
+#     return base_image
+#
+#
+# def combine_grey_scale_images(base_image: ndarray, top_image: ndarray) -> ndarray:
+#     top_rows, top_cols, top_channels = top_image.shape
+#     base_rows, base_cols, base_channels = base_image.shape
+#
+#     start_row = int((base_rows - top_rows) / 2)
+#     start_col = int((base_cols - top_cols) / 2)
+#     white = [255, 255, 255]
+#     top_image_border = cv2.copyMakeBorder(top_image,
+#                                           start_row,
+#                                           start_row,
+#                                           start_col,
+#                                           start_col,
+#                                           cv2.BORDER_CONSTANT,
+#                                           value=white)
+#     border_rows, border_cols, border_channels = top_image_border.shape
+#
+#     roi = base_image[0:base_rows, 0:base_cols]
+#
+#     top_image_gray = convert_to_grey_scale(top_image_border)
+#     base_image_gray = convert_to_grey_scale(base_image)
+#     ret, mask = cv2.threshold(top_image_gray, 200, 255, cv2.THRESH_BINARY)
+#
+#     mask_inv = cv2.bitwise_not(mask)
+#
+#     img_back = cv2.bitwise_and(roi, roi, mask=mask)
+#
+#     top_image_colour = cv2.bitwise_and(top_image_border, top_image_border, mask=mask_inv)
+#     # return top_image_colour
+#     # top_image_out = convert_to_grey_scale(top_image_colour)
+#     img_out = cv2.add(img_back, top_image_colour)
+#     base_image[0:border_rows, 0:border_cols] = img_out
+#     return base_image
+
+
+def combine_images(base_image: ndarray, top_image: ndarray) -> ndarray:
+    top_rows, top_cols, top_channels = top_image.shape
+    base_rows, base_cols, base_channels = base_image.shape
+
+    start_row = int((base_rows - top_rows) / 2)
+    start_col = int((base_cols - top_cols) / 2)
+
+    if start_row < 0 or start_col < 0:
+        raise ValueError("Top image is too big for base image")
+
+    white = [255, 255, 255]
+    top_image_border = cv2.copyMakeBorder(
+        top_image, start_row, start_row, start_col, start_col, cv2.BORDER_CONSTANT, value=white
+    )
+    border_rows, border_cols, border_channels = top_image_border.shape
+
+    roi = base_image[0:base_rows, 0:base_cols]
+
+    top_image_gray = convert_to_grey_scale(top_image_border)
+    # base_image_gray = convert_to_grey_scale(base_image)
+    ret, mask = cv2.threshold(top_image_gray, 200, 255, cv2.THRESH_BINARY)
+
+    mask_inv = cv2.bitwise_not(mask)
+
+    img_back = cv2.bitwise_and(roi, roi, mask=mask)
+
+    top_image_colour = cv2.bitwise_and(top_image_border, top_image_border, mask=mask_inv)
+    # return top_image_colour
+    # top_image_out = convert_to_grey_scale(top_image_colour)
+    img_out = cv2.add(img_back, top_image_colour)
+    base_image[0:border_rows, 0:border_cols] = img_out
+    return base_image
 
 
 # def create_binary_image(COLOR_WITHOUT_GRID_NAME: str, image_path: str) -> ndarray:

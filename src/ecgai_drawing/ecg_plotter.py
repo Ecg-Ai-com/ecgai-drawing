@@ -1,3 +1,4 @@
+import pathlib
 from math import ceil
 
 import matplotlib.pyplot as plt
@@ -9,8 +10,10 @@ from matplotlib.ticker import AutoMinorLocator
 from numpy import ndarray
 from pydantic.dataclasses import dataclass
 
+# from definitions import ROOT_DIR
 from ecgai_drawing import images
 from ecgai_drawing.enums.color_style import ColorStyle
+from ecgai_drawing.images import combine_images, load_image
 from ecgai_drawing.models.ecg_leads import Leads
 
 # from skimage.COLOR import rgba2rgb
@@ -39,7 +42,7 @@ class EcgPlotter:
     sample_rate: int = 500
     title: str = "ECG 12 lead"
     color_style: ColorStyle = ColorStyle.COLOR
-    line_width: float = 0.5
+    line_width: float = 1.0
     columns: int = 2
     row_height: int = 6
     show_lead_name: bool = True
@@ -73,12 +76,19 @@ class EcgPlotter:
         self.title = title
         self._set_style(color_style, show_grid)
         image = self._create_plot(ecg_leads)
-
         # convert from rgba format to rgb format
         image = images.convert_from_rgba_to_rgb(image=image)
-
         # convert from rgb format to bgr format required by openCv
         image = images.convert_from_rgb_to_bgr(image=image)
+
+        if self.show_grid:
+            # consider using different grid image based on the configuration of the Ecg plot
+            base_image = load_image(image_name="colour_six_x_two.png", image_path=data_directory())
+        else:
+            base_image = np.zeros([768, 2048, 3], dtype=np.uint8)
+            base_image.fill(255)
+            # if self.color_style == ColorStyle.COLOR:
+        image = combine_images(base_image=base_image, top_image=image)
 
         return image
 
@@ -106,16 +116,17 @@ class EcgPlotter:
         color_line, color_major_grid, color_minor_grid = self._set_line_style()
 
         if self.show_grid:
-            self._draw_grid(
-                subplot=subplot,
-                color_major_grid=color_major_grid,
-                color_minor_grid=color_minor_grid,
-                display_factor=display_factor,
-                x_max=x_max,
-                x_min=x_min,
-                y_max=y_max,
-                y_min=y_min,
-            )
+            pass
+            # self._draw_grid(
+            #     subplot=subplot,
+            #     color_major_grid=color_major_grid,
+            #     color_minor_grid=color_minor_grid,
+            #     display_factor=display_factor,
+            #     x_max=x_max,
+            #     x_min=x_min,
+            #     y_max=y_max,
+            #     y_min=y_min,
+            # )
 
         self._draw_plot_leads(
             subplot=subplot,
@@ -196,6 +207,7 @@ class EcgPlotter:
         return subplot
 
     def _setup_figure(self, display_factor: float, rows: int, length_seconds: float) -> Figure:
+
         figure = plt.figure(
             figsize=(
                 length_seconds * self.columns * display_factor,
@@ -225,7 +237,7 @@ class EcgPlotter:
         if self.color_style == ColorStyle.COLOR:
             color_major_grid = (1, 0, 0)
             color_minor_grid = (1, 0.7, 0.7)
-            color_line = (0, 0, 0.7)
+            color_line = (0, 0, 0)
         elif self.color_style in [
             ColorStyle.BLACK_AND_WHITE,
             ColorStyle.GREY_SCALE,
@@ -301,12 +313,25 @@ class EcgPlotter:
         )
 
     def _create_plot(self, ecg_leads):
+
         plt.ioff()
+        # plot_start = time.time()
+
         self._draw_plot(ecg_leads=ecg_leads)
+        # plot_finish = time.time()
+        # plot_execution_time = plot_finish - plot_start
+        # print(f"Plotting took {plot_execution_time:.6f} seconds")
         canvas = plt.get_current_fig_manager().canvas
+
         plt.close()
+        # agg=canvas
         agg = canvas.switch_backends(FigureCanvasAgg)
+
+        # draw_start = time.time()
         agg.draw()
+        # draw_finish = time.time()
+        # draw_execution_time = draw_finish - draw_start
+        # print(f"Drawing took {draw_execution_time:.6f} seconds")
         return np.asarray(agg.buffer_rgba())
 
     # @staticmethod
@@ -353,3 +378,9 @@ class EcgPlotter:
     #         p_lead = np.array(sig)
     #         output_array[array_position] = p_lead
     #     return output_array
+
+
+def data_directory() -> pathlib.Path:
+    file_path = pathlib.Path(pathlib.Path(pathlib.Path(__file__).parent, "grid_images"))
+    print(file_path)
+    return file_path

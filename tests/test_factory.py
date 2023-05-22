@@ -3,25 +3,25 @@ import pathlib
 
 from numpy import ndarray
 
-from definitions import ROOT_DIR
+# from definitions import ROOT_DIR
 from ecgai_drawing.images import convert_from_bytes, load_image, save_image
 from ecgai_drawing.models.ecg_leads import Leads
 
 # from definitions import ROOT_DIR
 
 valid_record_path_name = {
-    "tests/test_data/00001_hr.json",
-    "tests/test_data/10001_hr.json",
+    "test_data/00001_hr.json",
+    "test_data/10001_hr.json",
 }
 
 single_valid_record_path_name = {
-    "tests/test_data/00001_hr.json",
+    "test_data/00001_hr.json",
 }
 
 
 def setup_test_record_data(path_name: str) -> Leads:
     # record_path = os.path.abspath(os.path.join(path_name))
-    record_path = pathlib.Path(ROOT_DIR, path_name)
+    record_path = pathlib.Path(pathlib.Path(__file__).parent, path_name)
     # record = Leads()
     # with open(record_path) as f:
     #     record.from_json(f.read())
@@ -51,7 +51,7 @@ MASK_NAME = "mask.png"
 
 
 def data_directory() -> pathlib.Path:
-    file_path = pathlib.Path(ROOT_DIR, "tests/test_data")
+    file_path = pathlib.Path(pathlib.Path(pathlib.Path(__file__).parent, "test_data"))
     print(file_path)
     return file_path
 
