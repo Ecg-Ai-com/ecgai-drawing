@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ecgai-drawing"
-version = "0.1.14"
+version = "0.1.15"
 description = ""
 authors = ["RobC <rob.clapham@gmail.com>"]
 
@@ -11,7 +11,7 @@ numpy = "^1.23.2"
 aenum = "^3.1.11"
 pydantic = "^1.9.2"
 matplotlib = "^3.5.3"
-scikit-image = "^0.19.3"
+scikit-image = "^0.20.0"
 scipy = "^1.9.0"
 opencv-python = "^4.6.0"
 timer = "^0.2.2"
